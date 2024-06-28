@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { isEmail } from '../../utils';
-import { useGlobalContext } from '../../store/global';
+import React, { useState, useRef } from "react";
+import { isEmail } from "../../utils";
+import { useGlobalContext } from "../../store/global";
 
 export default function Login() {
   const { login } = useGlobalContext();
@@ -14,16 +14,16 @@ export default function Login() {
 
   const { emailErr, pwErr } = pageData;
 
-  const emailRef = useRef(null)
-  const passwordRef = useRef(null)
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   // validate the form, make sure both fields
   // are filled, and the email is a valid email
   // otherwise we show errors
   const validateForm = (e) => {
     e.preventDefault();
-    const email = emailRef.current
-    const password = passwordRef.current
+    const email = emailRef.current;
+    const password = passwordRef.current;
     let validEmail = true;
     let validPassword = true;
     if (!email.value || !isEmail(email.value)) {
@@ -34,8 +34,8 @@ export default function Login() {
     }
     if (validEmail && validPassword) {
       login(email.value, password.value);
-      email.value = '';
-      password.value = '';
+      email.value = "";
+      password.value = "";
     } else {
       setPageData((prevState) => ({
         ...prevState,
@@ -65,7 +65,9 @@ export default function Login() {
         <input
           id="email"
           name="email"
-          className={`form-field__input ${emailErr ? 'form-field__input--error' : ''}`}
+          className={`form-field__input ${
+            emailErr ? "form-field__input--error" : ""
+          }`}
           type="text"
           ref={emailRef}
         ></input>
@@ -75,8 +77,10 @@ export default function Login() {
         <input
           id="password"
           name="password"
-          className={`form-field__input ${pwErr ? 'form-field__input--error' : ''}`}
-          type="text"
+          className={`form-field__input ${
+            pwErr ? "form-field__input--error" : ""
+          }`}
+          type="password"
           ref={passwordRef}
         ></input>
       </div>

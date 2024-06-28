@@ -2,6 +2,8 @@ _For the requirement description, refer to [test/coding/frontend](https://wiredc
 
 ##Getting Started
 
+    create a .env file and set the API_URL
+
     npm install
     npm start
 
