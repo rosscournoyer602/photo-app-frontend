@@ -62,9 +62,9 @@ const [GlobalProvider, useGlobalContext] = createContextStore(
           })
           .then((res) => {
             localStorage.setItem("token", res.data.token);
-            localStorage.setItem("user", res.data.user.id);
+            localStorage.setItem("user", res.data.profile.id);
             setState({
-              user: res.data.user,
+              user: res.data.profile,
             });
             setShowLoader(false);
           });
@@ -78,13 +78,14 @@ const [GlobalProvider, useGlobalContext] = createContextStore(
       try {
         setShowLoader(true, "Authenticating");
         const res = await http.post("/signin", { email, password });
-        const { id } = res.data.user;
+        console.log(res);
+        const { id } = res.data.profile;
         const likes = await getUserLikes(id, res.data.token);
         if (res.data) {
           localStorage.setItem("token", res.data.token);
-          localStorage.setItem("user", res.data.user.id);
+          localStorage.setItem("user", id);
           setState({
-            user: res.data.user,
+            user: res.data.profile,
             likes: likes.data,
           });
         }
@@ -99,7 +100,7 @@ const [GlobalProvider, useGlobalContext] = createContextStore(
     const getUser = async (id, token) => {
       if (!token) token = localStorage.getItem("token");
       try {
-        const user = await http.get("/person", {
+        const user = await http.get("/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
