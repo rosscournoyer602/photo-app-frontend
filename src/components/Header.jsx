@@ -1,17 +1,22 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUserCircle, faHeart } from '@fortawesome/free-solid-svg-icons';
-import Search from './Search';
-import { useGlobalContext } from '../store/global';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faUserCircle,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
+import Search from "./Search";
+import { useGlobalContext } from "../store/global";
+import { imageRequest } from "../utils/imageRequest";
 
 export default function Header() {
   const { user, getUser } = useGlobalContext();
   // if user has logged in before and we have their token and id, log them in
   useEffect(() => {
     if (!user) {
-      const id = localStorage.getItem('user');
-      const token = localStorage.getItem('token');
+      const id = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
       if (id && token) {
         getUser(id, token);
       }
@@ -33,7 +38,14 @@ export default function Header() {
         {/* Show uder avatar if there is data */}
         {user && user.avatar && (
           <div className="header__icon header__user-img">
-            <img src={`https://d24tnhvewxeba9.cloudfront.net/${user.avatar}`} alt="user avatar" />
+            <img
+              src={`${process.env.IMAGE_URL}/${imageRequest(
+                user.avatar,
+                22,
+                22
+              )}`}
+              alt="user avatar"
+            />
           </div>
         )}
       </Link>

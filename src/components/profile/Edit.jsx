@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useGlobalContext } from "../../store/global";
+import { imageRequest } from "../../utils/imageRequest";
 
 const Edit = () => {
   const { user, logout, updateProfile } = useGlobalContext();
@@ -54,7 +55,7 @@ const Edit = () => {
           <img
             src={
               pageData.fileSrc ||
-              `https://d24tnhvewxeba9.cloudfront.net/${user.avatar}`
+              `${process.env.IMAGE_URL}/${imageRequest(user.avatar, 200, 200)}`
             }
             className="form-field__uploader"
             {...getRootProps()}
